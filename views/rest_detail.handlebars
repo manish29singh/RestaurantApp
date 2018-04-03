@@ -1,0 +1,28 @@
+<h2 class="page-header">
+    {{pageHeader}}</h2>
+
+<center>
+    <h4>Restaurant Name </h4>
+    <p> {{rest.restaurantname}}</p>
+    <h4>Restaurant Address </h4>
+    <p> {{rest.address}}</p>
+    <h4>Owner Name</h4>
+    <p> {{rest.ownername}}</p>
+    <h4>Contact Number </h4>
+    <p> {{rest.contactnumber}}</p>
+</center>
+<hr>
+<form action="/restaurants/addComment" method="post">
+    <input type="hidden" name="restid" value="{{rest._id}}">
+    <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea class="form-control" rows="5" name = "comment" id="comment"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+{{#each comments}}
+<hr>
+<h4>{{createdByName}}</h4>
+<p>{{commenttext}}</p>
+{{/each}}
