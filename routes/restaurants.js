@@ -79,23 +79,20 @@ router.get('/getRestaurant/:id', ensureAuthenticated, async function(req, res){
 
 router.get('/viewRestaurants', ensureAuthenticated, async function(req, res){
 	try{
-		var docs = await restModel.getAllRestaurant();
+		var docs = await restModel.getAllRestaurant(req, res);
 		//createbyName
-		for(let i = 0; i < docs.length; i++){
-			let likeCount = await likeModel.likeCounts(docs[i]._id, req, res);
-			docs[i].likeCounting = likeCount;
-			let check = await likeModel.checkLikes(docs[i]._id, req, res)
+		// for(let i = 0; i < docs.length; i++){
+		// 	let likeCount = await likeModel.likeCounts(docs[i]._id, req, res);
+		// 	docs[i].likeCounting = likeCount;
+		// 	let check = await likeModel.checkLikes(docs[i]._id, req, res)
 			
-			if(check.length>0){
-				docs[i].liked = true;
-				docs[i].likeid = check[0]._id;
-			}else{
-				docs[i].liked = false;
-			}
-			let createdByName = await userModel.find({_id: docs[i].createdby}, {name : 1});
-				console.log(createdByName);
-				docs[i].createdByName = createdByName[0].name;
-			}
+		// 	if(check.length>0){
+		// 		docs[i].liked = true;
+		// 		docs[i].likeid = check[0]._id;
+		// 	}else{
+		// 		docs[i].liked = false;
+		// 	}
+		//	}
 		res.render('view_restaurants', {rests : docs});
 		console.log(docs);
 	}catch(err){

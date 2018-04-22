@@ -12,6 +12,7 @@
  
   // restaurants Routes
   //get all 
+
   router.get('/restaurants', verifyToken,  function(req, res){
     jwt.verify(req.token, 'secretkey', async function(err, data){
       if(err){
@@ -34,7 +35,7 @@
   })
 
   //get one
-  router.get('restaurants/:restId', verifyToken, function(req, res){
+  router.get('/restaurants/:restId', verifyToken, function(req, res){
     jwt.verify(req.token, 'secretkey', async function(err, data){
       if(err){
         res.send(err);
@@ -45,7 +46,7 @@
   })
 
   //update one
-  router.put('restaurants/:restId', verifyToken, function(req, res){
+  router.put('/restaurants/:restId', verifyToken, function(req, res){
     jwt.verify(req.token, 'secretkey', async function(err, data){
       if(err){
         res.send(err);

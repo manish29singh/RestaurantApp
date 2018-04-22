@@ -6,6 +6,9 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 //var hbsHelpers = require('handlebars-helpers');
 
+var swaggerUI = require('swagger-ui-express');
+var swaggerDocument = require('./swagger.json');
+
 var expressValidator = require('express-validator');
 var flash = require('connect-flash');
 var session = require('express-session');
@@ -25,9 +28,15 @@ var comments = require('./routes/comment');
 
 //api
 var apiRouter = require('./routes/api');
+var apiWithoutToken = require('./routes/apiWithoutToken');
 
 //init app
 var app = express();
+
+//swagger setup
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+
 
 //handlebars helpers
 var hbs = exphbs.create({
@@ -107,7 +116,7 @@ app.use(expressValidator({
   app.use('/users', users);
   app.use('/restaurants', restaurants);
   app.use('/comments', comments);
-  app.use('/api', apiRouter);
+  app.use('/api', apiWithoutToken);
   
   // Set Port
   app.set('port', (process.env.PORT || 3000));

@@ -1,12 +1,13 @@
 var mongoose = require('mongoose');
 
+
 //Restaurant schema
 var RestaurantSchema = mongoose.Schema({
     restaurantname : String,
     address : String,
     ownername: String,
     contactnumber : Number, 
-    createdby : String
+    createdby : mongoose.Schema.ObjectId
 
 });
 
@@ -94,17 +95,50 @@ module.exports.deleteRestaurant = function(id, req, res){
 }
 
 
-module.exports.getAllRestaurant = function(){
+module.exports.getAllRestaurant = function(req, res){
     return new Promise(async function(resolve, reject){
         try{
-           await Restaurant.find({}, function(err, docs){
-                if(err){
-                    reject(err);
-                }else{
-                    resolve(docs);
+        let docs =  await Restaurant.aggregate([
+               {
+                   $lookup : {
+                       from : "users",
+                       localField : "createdby",
+                       foreignField : "_id",
+                       as : "user_docs"
+                   }
+               },  
+               {
+                $unwind: "$user_docs"
+               },
+               {
+                   $lookup:{
+                       from : "likes",
+                       localField: "_id",
+                       foreignField : "itemid",
+                       as: "like_docs"
+                   }
+               },
+               {
+                $project: {
+                    restaurantname : "$restaurantname",
+                    address : "$address",
+                    ownername : "$ownername",
+                    contactnumber : "$contactnumber",
+                    createdby : "$user_docs.name",
+                    like_docs: {
+                    $filter : {
+                        input : "$like_docs",
+                        cond : {
+                            $and:[{"itemid":"$_id"},{"likedbyid": req._passport.session.user }] 
+                        }
+                    }
+                   }
+                 }
                 }
-            })
+           ])
+           resolve(docs);
 
+           
         }catch(err){
             reject(err);
         }

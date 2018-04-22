@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 
 //schema
 var likeSchema = mongoose.Schema({
-    itemid: String,
-    likedbyid: String
+    itemid: mongoose.Schema.ObjectId,
+    likedbyid: mongoose.Schema.ObjectId
 });
 
 var Likes = module.exports = mongoose.model('Likes', likeSchema);

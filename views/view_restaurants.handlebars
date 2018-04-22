@@ -41,8 +41,7 @@
             <td>{{address}}</td>
             <td>{{ownername}}</td>
             <td>{{contactnumber}}</td>
-            <td>{{createdByName}}</td>
-
+            <td>{{createdby}}</td>
             <td>
                 <a href='/restaurants/editRestaurant/{{_id}}'>Edit</a>
             </td>
@@ -50,8 +49,8 @@
                 <button class ="btn btn-info" value="{{_id}}"  onclick="deleteFunc('{{_id}}')">Delete</button>
             </td>
             <td>
-                {{#if liked}}
-                <a href='/restaurants/unlikeRest/{{likeid}}'>Unlike</a>
+                {{#if like_docs}}
+                <a href='/restaurants/unlikeRest/{{like_docs.0._id}}'>Unlike</a>
                 {{else}}
                 <a href='/restaurants/likeRest/{{_id}}'>Like</a>
                 {{/if}}<span class="badge">{{likeCounting}}</span>

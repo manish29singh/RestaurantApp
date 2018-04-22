@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start" : "node app.js",
     "test": "mocha"
   },
   "author": "manish singh",
@@ -25,6 +26,7 @@
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*"
+    "passport-local": "*",
+    "swagger-ui-express": "^3.0.6"
   }
 }

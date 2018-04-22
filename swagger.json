@@ -1,0 +1,310 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Yet Another Node.js Blogg Application API",
+      "description": "Yet Another Node.js Blogg Application API",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:3000",
+    "basePath": "/api",
+    "tags": [
+      {
+        "name": "Restaurants",
+        "description": "API for Restaurants in the system"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/restaurants": {
+        "post": {
+          "tags": [
+            "Restaurants"
+          ],
+          "description": "Add new Restaurant in system",
+          "parameters": [
+            {
+              "name": "restaurant",
+              "in": "body",
+              "description": "Restaurant that we want to add",
+              "schema": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New Restaurant is added",
+              "schema": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Restaurants"
+          ],
+          "summary": "Get all restaurants in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Restaurants"
+              }
+            }
+          }
+        }
+      },
+      "/restaurants/{restId}": {
+        "parameters": [
+          {
+            "name": "restId",
+            "in": "path",
+            "required": true,
+            "description": "ID of Restaurant that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Restaurants"
+          ],
+          "summary": "Get restaurant with given ID",
+          "responses": {
+            "200": {
+              "description": "Restaurant is found",
+              "schema": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete restaurant with given ID",
+          "tags": [
+            "Restaurants"
+          ],
+          "responses": {
+            "200": {
+              "description": "Restaurant is deleted",
+              "schema": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update restaurant with give ID",
+          "tags": [
+            "Restaurants"
+          ],
+          "parameters": [
+            {
+              "name": "restaurant",
+              "in": "body",
+              "description": "Restaurant with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Restaurant is updated",
+              "schema": {
+                "$ref": "#/definitions/Restaurant"
+              }
+            }
+          }
+        }
+      },
+      
+
+      "/deals": {
+        "post": {
+          "tags": [
+            "Deals"
+          ],
+          "description": "Add new Deal  in system",
+          "parameters": [
+            {
+              "name": "deal",
+              "in": "body",
+              "description": "Deal that we want to add",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "New Deal is added",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          }
+        },
+        "get": {
+          "tags": [
+            "Deals"
+          ],
+          "summary": "Get all deals in system",
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          }
+        }
+      },
+
+      "/deals/{dealId}": {
+        "parameters": [
+          {
+            "name": "dealId",
+            "in": "path",
+            "required": true,
+            "description": "ID of Deal that we want to find",
+            "type": "string"
+          }
+        ],
+        "get": {
+          "tags": [
+            "Deals"
+          ],
+          "summary": "Get Deal with given ID",
+          "responses": {
+            "200": {
+              "description": "Deal is found",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete Deal with given ID",
+          "tags": [
+            "Deals"
+          ],
+          "responses": {
+            "200": {
+              "description": "Deal is deleted",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          }
+        },
+        "put": {
+          "summary": "Update deal with give ID",
+          "tags": [
+            "Deals"
+          ],
+          "parameters": [
+            {
+              "name": "deal",
+              "in": "body",
+              "description": "Deal with new values of properties",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Deal is updated",
+              "schema": {
+                "$ref": "#/definitions/Deal"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Restaurant": {
+        "required": [
+          "email",
+          "_id"
+        ],
+        "properties": {
+          "restaurantname": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "address": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "ownername": {
+            "type": "string"
+          },
+          "contactnumber": {
+            "type": "string"
+          },
+          "createdby": {
+            "type" : "string"
+          }
+        }
+      },
+      "Restaurants": {
+        "type": "array",
+        "$ref": "#/definitions/Restaurant"
+      },
+
+
+      "Deal": {
+        "required": [
+          "email",
+          "_id"
+        ],
+        "properties": {
+          "dealname": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "dealtype": {
+            "type": "string",
+            "uniqueItems": true
+          },
+          "discountoffer": {
+            "type": "Number"
+          },
+          "restaurantid": {
+            "type": "string"
+          },
+          "createdby": {
+            "type" : "string"
+          }
+        }
+      },
+      "Deals": {
+        "type": "array",
+        "$ref": "#/definitions/Deal"
+      }
+
+
+    }
+  }
