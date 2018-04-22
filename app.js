@@ -107,7 +107,7 @@ app.use(expressValidator({
   app.use('/users', users);
   app.use('/restaurants', restaurants);
   app.use('/comments', comments);
-  apiRouter(app);
+  app.use('/api', apiRouter);
   
   // Set Port
   app.set('port', (process.env.PORT || 3000));

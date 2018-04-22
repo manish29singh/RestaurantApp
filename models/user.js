@@ -18,6 +18,10 @@ var UserSchema = mongoose.Schema({
 	}
 });
 
+UserSchema.methods.comparePasswordVer = function(pass){
+	return bcrypt.compareSync(pass, this.password);
+}
+
 var User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.createUser = function(newUser, callback){

@@ -99,10 +99,6 @@ router.post('/login',
     res.redirect('/');
   });
 
-//jwt authentication
-// router.post('/login', function(req, res){
-
-// })
 
 router.get('/logout', function(req, res){
 	req.logout();
@@ -113,23 +109,16 @@ router.get('/logout', function(req, res){
 });
 
 function verifyToken(req, res, next) {
-	// Get auth header value
 	const bearerHeader = req.headers['authorization'];
-	// Check if bearer is undefined
 	if(typeof bearerHeader !== 'undefined') {
-	  // Split at the space
 	  const bearer = bearerHeader.split(' ');
-	  // Get token from array
 	  const bearerToken = bearer[1];
-	  // Set the token
 	  req.token = bearerToken;
-	  // Next middleware
 	  next();
 	} else {
 	  // Forbidden
 	  res.sendStatus(403);
 	}
-  
 	}
 	
 	router.post('/posts', verifyToken, (req, res) => {  
